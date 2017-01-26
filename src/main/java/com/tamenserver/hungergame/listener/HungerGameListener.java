@@ -93,7 +93,6 @@ public class HungerGameListener implements Listener{
         }
         if(evt.getEntity() instanceof Player && game.getSituation().equals(Situation.Start) && game.isContainsPlayer((Player)evt.getEntity())){
             evt.setCancelled(true);
-            System.out.println("组止攻击！");
             return;
         }
     }

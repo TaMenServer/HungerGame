@@ -80,7 +80,7 @@ public class Game {
               }
           }
         };
-        tasks.add(br1.runTaskLater(plugin,600L));
+        tasks.add(br1.runTaskLater(plugin,900L));
         BukkitRunnable br2 = new BukkitRunnable(){
             @Override
             public void run(){
@@ -93,7 +93,7 @@ public class Game {
                 }
             }
         };
-        tasks.add(br2.runTaskLater(plugin, 30000L));
+        tasks.add(br2.runTaskLater(plugin, 24000L));
     }
     
     public void quitPlayer(Player p){
@@ -179,8 +179,9 @@ public class Game {
         for(BukkitTask bt : tasks){
             bt.cancel();
         }
+        File file =generator.getWorld().getWorldFolder();
         plugin.getServer().unloadWorld(generator.getWorld(),true);
-        delFile(generator.getWorld().getWorldFolder());
+        delFile(file);
     }
     
     private void delFile(File file){
@@ -188,6 +189,7 @@ public class Game {
             for(File f : file.listFiles()){
                 delFile(f);
             }
+            file.delete();
         }else{
             file.delete();
         }
