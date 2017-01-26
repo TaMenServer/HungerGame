@@ -179,6 +179,7 @@ public class Game {
         for(BukkitTask bt : tasks){
             bt.cancel();
         }
+        plugin.getServer().unloadWorld(generator.getWorld(),true);
         delFile(generator.getWorld().getWorldFolder());
     }
     
