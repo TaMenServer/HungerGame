@@ -1,0 +1,12 @@
+apply plugin: 'java'
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile 'org.spigotmc:spigot-api:1.11.2-R0.1-SNAPSHOT'
+    compile 'org.bukkit:bukkit:1.11.2-R0.1-SNAPSHOT'
+    testCompile 'junit:junit:4.12'
+}
+
