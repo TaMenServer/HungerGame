@@ -50,6 +50,7 @@ public class WorldGenerator {
                         tmpb.setType(Material.CHEST);
                         Inventory tmpi = (Inventory) tmpb.getState();
                     }
+                    WorldInitEvent.getHandlerList().unregister(this);
                 }
             }
         }, plugin);
