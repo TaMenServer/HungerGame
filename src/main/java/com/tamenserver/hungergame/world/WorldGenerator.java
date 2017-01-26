@@ -15,18 +15,22 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class WorldGenerator {
     private final String worldname;
     private JavaPlugin plugin;
-    
+    private boolean isWorldInitialized;
+    private Location spawnLocation;
     public WorldGenerator(JavaPlugin plugin,String worldname){
         this.plugin = plugin;
         this.worldname = worldname;
         worldInit();
+        isWorldInitialized = false;
     }
     private void worldInit(){
         WorldCreator wc = new WorldCreator(worldname);
-        wc.createWorld();
+        World w = wc.createWorld();
+        spawnLocation = w.getHighestBlockAt(w.getSpawnLocation()).getLocation();
         plugin.getServer().getPluginManager().registerEvents(new Listener(){
             @EventHandler
             public void onWorldCreate(WorldInitEvent evt){
+                isWorldInitialized = true;
                 if(evt.getWorld().getName().equals(worldname)){
                     int[][] next = new int[][]{
                         {-2,0},
@@ -49,5 +53,13 @@ public class WorldGenerator {
                 }
             }
         }, plugin);
+    }
+    
+    public boolean isWorldInitialized(){
+        return isWorldInitialized;
+    }
+    
+    public Location getSpawnLocation(){
+        return spawnLocation;
     }
 }
