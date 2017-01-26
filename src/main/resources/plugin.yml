@@ -1,0 +1,9 @@
+name: HungerGame
+main: com.tamenserver.hungergame.Main
+version: 1.0.0
+author: TaMenServer
+commands:
+  hungergame:
+    description: A main command.
+    usage: /hg
+    aliases: [hg]
