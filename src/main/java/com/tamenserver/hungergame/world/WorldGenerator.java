@@ -12,6 +12,8 @@ import org.bukkit.event.world.WorldInitEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.tamenserver.hungergame.gamerandom.GameRandom;
+
 public class WorldGenerator {
     private final String worldname;
     private JavaPlugin plugin;
@@ -49,6 +51,7 @@ public class WorldGenerator {
                         Block tmpb = tmpl.getBlock();
                         tmpb.setType(Material.CHEST);
                         Inventory tmpi = (Inventory) tmpb.getState();
+                        GameRandom gr = new GameRandom(tmpi);
                     }
                     WorldInitEvent.getHandlerList().unregister(this);
                 }

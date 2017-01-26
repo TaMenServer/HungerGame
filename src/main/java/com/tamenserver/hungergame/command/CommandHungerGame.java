@@ -1,41 +1,26 @@
 package com.tamenserver.hungergame.command;
 
-import org.bukkit.Location;
+import java.util.HashMap;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.tamenserver.hungergame.manager.Manager;
-import com.tamenserver.hungergame.world.WorldGenerator;
+import com.tamenserver.hungergame.game.Game;
+import com.tamenserver.hungergame.game.Situation;
 
 public class CommandHungerGame implements CommandExecutor {
     private JavaPlugin plugin;
-    
+    public static HashMap<String,Game> games = new HashMap<String,Game>();
     public CommandHungerGame(JavaPlugin plugin) {
         this.plugin = plugin;
     }
     
-    private Manager manager;
-    
-    private WorldGenerator worldGenerator;
-    private Location spawnLocation;
-    
-    private void onCommandStart(String worldName) {
-        worldGenerator = new WorldGenerator(plugin, worldName);
-        this.spawnLocation = worldGenerator.getSpawnLocation();
-        manager = new Manager(plugin);
-        manager.onGameSetUp(spawnLocation);
-    }
-    
-    private void onCommandJoin(Player player) {
-        manager.survivingPlayerList.add(player);
-        player.teleport(spawnLocation);
-        player.sendMessage("您已加入游戏。");
-        if (manager.survivingPlayerList.size() >= 10) {
-            manager.onGameStart();
-        }
+    private void onCommandSetUp(String gameName,String worldName) {
+        Game game = new Game(plugin,gameName,worldName);
+        games.put(gameName, game);
     }
     
     @Override
@@ -43,8 +28,8 @@ public class CommandHungerGame implements CommandExecutor {
             String label, String[] args) {
         if (command.getName().equalsIgnoreCase("HungerGame")) {
             switch (args[0].toLowerCase()) {
-                case "start": {
-                    if (args.length > 1) {
+                case "setup": {
+                    if (args.length > 3) {
                         sender.sendMessage("你输入的指令错误。");
                         return true;
                     }
@@ -52,15 +37,31 @@ public class CommandHungerGame implements CommandExecutor {
                         sender.sendMessage("您没有令游戏开始的权限。");
                         return true;
                     }
-                    onCommandStart("hunger_game_world");
+                    onCommandSetUp(args[1],args[2]);
                     return true;
                 }
                 case "join": {
-                    if (!worldGenerator.isWorldInitialized()) {
+                    if (!games.get(args[1]).isWorldInitialized()) {
                         sender.sendMessage("世界尚未生成，请稍后再试。");
                         return true;
                     }
-                    onCommandJoin((Player)sender);
+                    games.get(args[1]).joinPlayer((Player)sender);
+                    return true;
+                }
+                case "start": {
+                    if (!sender.isOp()) {
+                        sender.sendMessage("您没有令游戏开始的权限。");
+                        return true;
+                    }
+                    if(!games.containsKey(args[1])){
+                        sender.sendMessage("没有名字为"+args[1]+"的游戏");
+                        return true;
+                    }
+                    if(!games.get(args[1]).getSituation().equals(Situation.SetUp)){
+                        sender.sendMessage("游戏已经开始了！");
+                    }else{
+                        games.get(args[1]).startGame();
+                    }
                     return true;
                 }
             }
