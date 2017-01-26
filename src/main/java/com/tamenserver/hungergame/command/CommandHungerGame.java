@@ -41,8 +41,16 @@ public class CommandHungerGame implements CommandExecutor {
                     return true;
                 }
                 case "join": {
+                    if(!games.containsKey(args[1])){
+                        sender.sendMessage("没有名字为"+args[1]+"的游戏");
+                        return true;
+                    }
                     if (!games.get(args[1]).isWorldInitialized()) {
                         sender.sendMessage("世界尚未生成，请稍后再试。");
+                        return true;
+                    }
+                    if(games.get(args[1]).isContainsPlayer((Player)sender)){
+                        sender.sendMessage("你已经加入了这个游戏！");
                         return true;
                     }
                     games.get(args[1]).joinPlayer((Player)sender);
@@ -63,6 +71,9 @@ public class CommandHungerGame implements CommandExecutor {
                         games.get(args[1]).startGame();
                     }
                     return true;
+                }
+                case "":{
+                    break;
                 }
             }
         }

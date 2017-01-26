@@ -52,7 +52,7 @@ public class HungerGameListener implements Listener{
     
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent evt){
-        if(!game.isContainsSurvivalPlayer(evt.getEntity())){
+        if(!game.isContainsSurvivalPlayer(evt.getEntity()) || game.getSituation().equals(Situation.SetUp)){
             return;
         }
         if(evt.getEntity().getLastDamageCause() instanceof EntityDamageByEntityEvent){
@@ -73,7 +73,7 @@ public class HungerGameListener implements Listener{
             if(game.isOutOfBorder(evt.getPlayer().getLocation())){
                 if(!cooldown.containsKey(evt.getPlayer().getUniqueId())){
                     if(game.isContainsSurvivalPlayer(evt.getPlayer())){
-                        evt.getPlayer().setHealth(evt.getPlayer().getHealth()-2);
+                        evt.getPlayer().setHealth(Math.max(evt.getPlayer().getHealth()-2,0));
                         evt.getPlayer().sendMessage("你已超过边界，请快速向出生点方向移动！");
                         cooldown.put(evt.getPlayer().getUniqueId(), 5);
                     }else{
@@ -91,8 +91,9 @@ public class HungerGameListener implements Listener{
             evt.getEntity().teleport(game.getSpawnLocation());
             return;
         }
-        if(evt.getEntity() instanceof Player && (game.getSituation().equals(Situation.SetUp)||game.getSituation().equals(Situation.Start)) && game.isContainsPlayer((Player)evt.getEntity())){
+        if(evt.getEntity() instanceof Player && game.getSituation().equals(Situation.Start) && game.isContainsPlayer((Player)evt.getEntity())){
             evt.setCancelled(true);
+            System.out.println("组止攻击！");
             return;
         }
     }

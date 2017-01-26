@@ -12,7 +12,7 @@ public class Border {
             @Override
             public void run(){
                 count++;
-                if (count > 40 && border >= 20) {
+                if (count > 40 && border >= 20) {//40
                     border--;
                 }
                 if(border == 20){
@@ -27,7 +27,7 @@ public class Border {
     private int count = 0;
     
     public boolean isOutOfBorder(Location spawnLoc, Location myLoc) {
-        if (Math.abs(myLoc.getBlockX() - spawnLoc.getBlockX()) < border || Math.abs(myLoc.getBlockZ() - spawnLoc.getBlockZ()) < border) {
+        if (Math.abs(myLoc.getBlockX() - spawnLoc.getBlockX()) < border && Math.abs(myLoc.getBlockZ() - spawnLoc.getBlockZ()) < border) {
             return false;
         }
         return true;
