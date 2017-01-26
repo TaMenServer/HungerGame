@@ -13,8 +13,8 @@ public class GameRandom {
         int nums=(int) (new Random().nextInt(10));
         for(int thisnum=1;thisnum<=nums;thisnum++){
             int num=(int) (new Random().nextInt(GameRandom.mlist.length));
-            if(num!=0) i.setItem(thisnum, new ItemStack(mlist[num],1));
-            else    i.setItem(thisnum, new ItemStack(mlist[num],16));
+            if(num!=0) i.setItem((int) (new Random().nextInt(27)), new ItemStack(mlist[num],1));
+            else    i.setItem((int) (new Random().nextInt(27)), new ItemStack(mlist[num],16));
         }
         
     }
