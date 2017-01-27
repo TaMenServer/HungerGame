@@ -14,7 +14,10 @@ public class GameRandom {
         for(int thisnum=1;thisnum<=nums;thisnum++){
             int num=(int) (new Random().nextInt(GameRandom.mlist.length));
             if(num!=0&&num!=1) i.setItem((int) (new Random().nextInt(27)), new ItemStack(mlist[num],1));
-            else    i.setItem((int) (new Random().nextInt(27)), new ItemStack(mlist[num],(int) (new Random().nextInt(10))));
+            else if(num==6||num==7||num==8||num==9){
+                int tmpran=(int) (new Random().nextInt(3));
+                if(tmpran==0)   i.setItem((int) (new Random().nextInt(27)), new ItemStack(mlist[num],(int) (new Random().nextInt(10))));
+            }else i.setItem((int) (new Random().nextInt(27)), new ItemStack(mlist[num],(int) (new Random().nextInt(10))));
         }
         
     }
