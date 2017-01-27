@@ -14,10 +14,10 @@ import com.tamenserver.hungergame.gamerandom.GameRandom;
 
 public class WorldGenerator {
     private final String worldname;
+    @SuppressWarnings("unused")
     private JavaPlugin plugin;
     private boolean isWorldInitialized;
     private World w;
-    private Location spawnLocation;
     public WorldGenerator(JavaPlugin plugin,String worldname){
         this.plugin = plugin;
         this.worldname = worldname;
@@ -44,10 +44,10 @@ public class WorldGenerator {
             Block tmpb = tmpl.getBlock();
             tmpb.setType(Material.CHEST);
             Inventory tmpi = ((Chest) tmpb.getState()).getInventory();
+            @SuppressWarnings("unused")
             GameRandom gr = new GameRandom(tmpi);
         }
         
-        spawnLocation = w.getHighestBlockAt(w.getSpawnLocation()).getLocation();
     }
     
     public boolean isWorldInitialized(){
@@ -55,7 +55,7 @@ public class WorldGenerator {
     }
     
     public Location getSpawnLocation(){
-        return spawnLocation;
+        return w.getHighestBlockAt(w.getSpawnLocation()).getLocation();
     }
     
     public World getWorld(){
