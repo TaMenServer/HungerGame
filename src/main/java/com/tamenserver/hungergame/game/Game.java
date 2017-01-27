@@ -130,7 +130,6 @@ public class Game {
     public void deathPlayer(Player death,Player killer){
         deaths.add(death);
         survivals.remove(death);
-        death.spigot().respawn();
         death.setGameMode(GameMode.SPECTATOR);
         death.teleport(spawnLocation);
         death.sendMessage("你被"+killer.getName()+"杀死了！切换为旁观模式");
@@ -227,5 +226,13 @@ public class Game {
     
     public boolean isOutOfBorder(Location loc){
         return border.isOutOfBorder(spawnLocation,loc);
+    }
+    
+    public ArrayList<String> getSurvivalsName(){
+        ArrayList<String> names = new ArrayList<String>();
+        for(Player p : survivals){
+            names.add(p.getName());
+        }
+        return names;
     }
 }

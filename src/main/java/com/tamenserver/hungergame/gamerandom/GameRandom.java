@@ -14,7 +14,10 @@ public class GameRandom {
         for(int thisnum=1;thisnum<=nums;thisnum++){
             int num=(int) (new Random().nextInt(GameRandom.mlist.length));
             if(num!=0&&num!=1) i.setItem((int) (new Random().nextInt(27)), new ItemStack(mlist[num],1));
-            else    i.setItem((int) (new Random().nextInt(27)), new ItemStack(mlist[num],(int) (new Random().nextInt(10))));
+            else if(mlist[num]==Material.LEATHER_HELMET||mlist[num]==Material.LEATHER_CHESTPLATE||mlist[num]==Material.LEATHER_BOOTS||mlist[num]==Material.LEATHER_LEGGINGS){
+                int tmpran=(int) (new Random().nextInt(3));
+                if(tmpran==0)   i.setItem((int) (new Random().nextInt(27)), new ItemStack(mlist[num],(int) (new Random().nextInt(10))));
+            }else i.setItem((int) (new Random().nextInt(27)), new ItemStack(mlist[num],(int) (new Random().nextInt(10))));
         }
         
     }
