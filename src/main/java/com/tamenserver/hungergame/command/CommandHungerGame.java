@@ -37,7 +37,7 @@ public class CommandHungerGame implements CommandExecutor {
                         sender.sendMessage("您没有令游戏开始的权限。");
                         return true;
                     }
-                    if(!games.containsKey(args[1])){
+                    if(games.containsKey(args[1])){
                         sender.sendMessage("该游戏已经设置完成了！");
                         return true;
                     }
