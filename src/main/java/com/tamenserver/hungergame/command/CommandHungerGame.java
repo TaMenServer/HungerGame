@@ -37,6 +37,10 @@ public class CommandHungerGame implements CommandExecutor {
                         sender.sendMessage("您没有令游戏开始的权限。");
                         return true;
                     }
+                    if(!games.containsKey(args[1])){
+                        sender.sendMessage("该游戏已经设置完成了！");
+                        return true;
+                    }
                     onCommandSetUp(args[1],args[2]);
                     return true;
                 }
@@ -51,6 +55,10 @@ public class CommandHungerGame implements CommandExecutor {
                     }
                     if(games.get(args[1]).isContainsPlayer((Player)sender)){
                         sender.sendMessage("你已经加入了这个游戏！");
+                        return true;
+                    }
+                    if(!games.get(args[1]).getSituation().equals(Situation.SetUp)){
+                        sender.sendMessage("游戏已经开始了，你无法关闭！");
                         return true;
                     }
                     games.get(args[1]).joinPlayer((Player)sender);
@@ -69,11 +77,8 @@ public class CommandHungerGame implements CommandExecutor {
                         sender.sendMessage("游戏已经开始了！");
                     }else{
                         games.get(args[1]).startGame();
-                    }
+                    } 
                     return true;
-                }
-                case "":{
-                    break;
                 }
             }
         }
