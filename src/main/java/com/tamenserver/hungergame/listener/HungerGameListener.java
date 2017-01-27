@@ -59,7 +59,8 @@ public class HungerGameListener implements Listener{
             Entity killer = ((EntityDamageByEntityEvent)evt.getEntity().getLastDamageCause()).getDamager();
             if(killer instanceof Player){
                 game.deathPlayer(evt.getEntity(),(Player) killer);
-                
+            }else{
+                game.deathPlayer(evt.getEntity());
             }
         }else{
             game.deathPlayer(evt.getEntity());

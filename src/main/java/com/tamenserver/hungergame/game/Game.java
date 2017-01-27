@@ -60,6 +60,7 @@ public class Game {
         for (Player player : survivals) {
             player.sendMessage("游戏开始！");
             oldloc.put(player.getUniqueId(), player.getLocation());
+            player.spigot().respawn();
             player.teleport(spawnLocation);
             player.getInventory().clear();
             player.setGameMode(GameMode.SURVIVAL);

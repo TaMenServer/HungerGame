@@ -6,6 +6,8 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -24,6 +26,21 @@ public class Main extends JavaPlugin {
                 Player p = evt.getPlayer();
                 p.teleport(spawn);
                 p.setGameMode(GameMode.SURVIVAL);
+            }
+            @EventHandler
+            public void onPlayerBreak(BlockBreakEvent evt){
+               if(evt.getPlayer().getLocation().getWorld().equals(Main.this.getServer().getWorld("world"))&& !evt.getPlayer().isOp()){
+                   evt.setCancelled(true);
+               }
+            }
+            @EventHandler
+            public void onPlayerDamage(EntityDamageEvent evt){
+                if(evt.getEntity() instanceof Player){
+                    Player p = (Player)evt.getEntity();
+                    if(p.getLocation().getWorld().equals(Main.this.getServer().getWorld("world"))){
+                        evt.setCancelled(true);
+                    }
+                }
             }
         }, this);
     }
