@@ -75,11 +75,10 @@ public class CommandHungerGame implements CommandExecutor {
                     }
                     
                     StringBuffer strBuf = new StringBuffer("现在存活的玩家有：");
-                    /*for (String playerName : games.get(args[1]).getSurvivalsName()) {
+                    for (String playerName : games.get(args[1]).getSurvivalsName()) {
                         strBuf.append(" ");
                         strBuf.append(playerName);
                     }
-                    */
                     sender.sendMessage(strBuf.toString());
                     
                     StringBuffer strBuf1 = new StringBuffer("出生点坐标为：");

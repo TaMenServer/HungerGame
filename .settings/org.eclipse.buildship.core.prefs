@@ -3,7 +3,7 @@
 >>>>>>>=branch 'master' of https\://github.com/TaMenServer/HungerGame.git
 build.commands=org.eclipse.jdt.core.javabuilder
 connection.arguments=
-connection.gradle.distribution=GRADLE_DISTRIBUTION(LOCAL_INSTALLATION(E\:\\softwares\\gradle-3.2.1))
+connection.gradle.distribution=GRADLE_DISTRIBUTION(LOCAL_INSTALLATION(D\:\\Programming Source\\workspace\\eclipse\\gradle-3.0))
 connection.java.home=null
 connection.jvm.arguments=
 connection.project.dir=
