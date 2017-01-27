@@ -65,12 +65,35 @@ public class CommandHungerGame implements CommandExecutor {
                         sender.sendMessage("没有名字为"+args[1]+"的游戏");
                         return true;
                     }
+                    
+                    StringBuffer strBuf = new StringBuffer("现在存活的玩家有：");
+                    /*for (String playerName : games.get(args[1]).getSurvivalsName()) {
+                        strBuf.append(" ");
+                        strBuf.append(playerName);
+                    }
+                    */
+                    sender.sendMessage(strBuf.toString());
+                    
+                    StringBuffer strBuf1 = new StringBuffer("出生点坐标为：");
+                    strBuf1.append(" X:");
+                    strBuf1.append("games.get(args[1]).getSpawnLocation().getBlockX()");
+                    strBuf1.append(" Y:");
+                    strBuf1.append("games.get(args[1]).getSpawnLocation().getBlockY()");
+                    strBuf1.append(" Z:");
+                    strBuf1.append("games.get(args[1]).getSpawnLocation().getBlockZ()");
+                    sender.sendMessage(strBuf1.toString());
+                    return true;
+                }
+                case "info": {
+                    if(!games.containsKey(args[1])){
+                        sender.sendMessage("没有名字为"+args[1]+"的游戏");
+                        return true;
+                    }
                     if(!games.get(args[1]).getSituation().equals(Situation.SetUp)){
                         sender.sendMessage("游戏已经开始了！");
                     }else{
                         games.get(args[1]).startGame();
                     }
-                    return true;
                 }
                 case "":{
                     break;
